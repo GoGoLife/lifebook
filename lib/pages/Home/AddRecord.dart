@@ -98,7 +98,11 @@ class AddRecordsVC extends StatelessWidget {
   Widget _WrapVC() {
     List<Widget> widgetList = [];
     for (int i = 0; i < 10; i++) {
-      widgetList.add(Text('${i}' + '个Text'));
+      widgetList.add(Container(
+        height: 40,
+        width: 40,
+        child: Image.asset('lib/LocalImages/diet_1_3@3x.png'),
+      ));
     }
     return Container(
       width: ScreenUtil.instance.setWidth(ScreenUtil.screenWidth),
