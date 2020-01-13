@@ -8,10 +8,11 @@ import '../RoutersPage/router_urls.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print(ScreenUtil.screenWidth);
     return Scaffold(
       appBar: AppBar(title: Text('首页'),),
       body: Container(
-        width: ScreenUtil().setWidth(ScreenUtil.screenWidth),
+        width: ScreenUtil.screenWidth,
         color: Colors.white,
         child: Stack(
           alignment: Alignment.center,
@@ -37,12 +38,17 @@ class HomePage extends StatelessWidget {
                   Applicaton.router.navigateTo(context, RouterUrls.home_add_record);
                 },
                 child: Container(
-                    height: ScreenUtil().setHeight(140),
-                    width: ScreenUtil().setWidth(140),
-                    decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        shape: BoxShape.circle
-                    ),
+                  height: ScreenUtil().setHeight(140),
+                  width: ScreenUtil().setWidth(140),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
