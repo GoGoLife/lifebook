@@ -6,9 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Provide/home_add_record_provide.dart';
 
 class AddRecordsVC extends StatelessWidget {
-
-  int touchIndex = -1;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -25,6 +22,7 @@ class AddRecordsVC extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 _PriceTextField(),
+                _SpendingOrIncomeView(context),
                 _isNecessary(context),
                 _WrapVC(context),
               ],
@@ -58,8 +56,51 @@ class AddRecordsVC extends StatelessWidget {
     );
   }
 
+  ///支出  还是收入
+  Widget _SpendingOrIncomeView(BuildContext context){
+    return Provide<AddRecordChangeNotification>(
+      builder: (context, child, val) {
+        return Container(
+          padding: EdgeInsets.only(left: 15),
+          color: Colors.blueAccent,
+          child: Row(
+            children: <Widget>[
+              Text('支出 / 收入：'),
+              Flexible(
+                child: RadioListTile<String>(
+                    value: '支出',
+                    title: Text('支出'),
+                    groupValue: val.isIncome,
+                    activeColor: Colors.red,
+                    onChanged: (value) {
+                      Provide.value<AddRecordChangeNotification>(context)
+                          .changeIsIncomeAction(value);
+                    }
+                ),
+              ),
+              Flexible(
+                child: RadioListTile<String>(
+                    value: '收入',
+                    title: Text('收入'),
+                    groupValue: val.isIncome,
+                    activeColor: Colors.red,
+                    onChanged: (value) {
+                      Provide.value<AddRecordChangeNotification>(context)
+                          .changeIsIncomeAction(value);
+                    }
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+
+  ///是否必要支出
   Widget _isNecessary(BuildContext context) {
-    return Provide<ChangeHomeAddRecordIsNecessary>(builder: (context, child, value){
+    return Provide<AddRecordChangeNotification>(builder: (context, child, value){
       return Container(
         color: Colors.blueAccent,
         width: ScreenUtil.screenWidth,
@@ -76,8 +117,7 @@ class AddRecordsVC extends StatelessWidget {
                     groupValue: value.isNecessary,
                     activeColor: Colors.red,
                     onChanged: (val) {
-                      print('1111111111');
-                      Provide.value<ChangeHomeAddRecordIsNecessary>(context)
+                      Provide.value<AddRecordChangeNotification>(context)
                           .changeIsNecessaryAction(val);
                     }
                 ),
@@ -89,8 +129,7 @@ class AddRecordsVC extends StatelessWidget {
                     groupValue: value.isNecessary,
                     activeColor: Colors.red,
                     onChanged: (val) {
-                      print('222222222');
-                      Provide.value<ChangeHomeAddRecordIsNecessary>(context)
+                      Provide.value<AddRecordChangeNotification>(context)
                           .changeIsNecessaryAction(val);
                     }
                 ),
@@ -127,13 +166,14 @@ class AddRecordsVC extends StatelessWidget {
     return InkWell(
       onTap: (){
         ///改变值
-        Provide.value<ChangeHomeAddRecordIsNecessary>(context).changeTouchSelectIndex(index);
+        Provide.value<AddRecordChangeNotification>(context).changeTouchSelectIndex(index);
       },
-      child: Provide<ChangeHomeAddRecordIsNecessary>(
+      child: Provide<AddRecordChangeNotification>(
         builder: (context, child, val) {
           ///获取值  并使用
-          int getIndex = Provide.value<ChangeHomeAddRecordIsNecessary>
-            (context).currentSelectIndex;
+//          int getIndex = Provide.value<AddRecordChangeNotification>
+//            (context).currentSelectIndex;
+          int getIndex = val.currentSelectIndex;
           if (getIndex == index) {
             imageNamed = 'lib/LocalImages/diet_1_2@3x.png';
           } else {

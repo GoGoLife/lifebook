@@ -24,8 +24,7 @@ class HomePage extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: 10,
                       itemBuilder: (context, index) {
-                        return ListCellItem();
-//                    return ListTile(title: Text('${index}' + '啊啊啊啊'),);
+                        return ListCellItem(true);
                       },
                     )
                 ),

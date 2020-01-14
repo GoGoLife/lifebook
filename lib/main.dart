@@ -11,11 +11,11 @@ void main(){
   var provides = Providers();
 
   ///实例化一个通知类
-  var home_add_recored_provide = ChangeHomeAddRecordIsNecessary();
+  var home_add_recored_provide = AddRecordChangeNotification();
 
   ///绑定
   provides
-    ..provide(Provider<ChangeHomeAddRecordIsNecessary>.value(home_add_recored_provide));
+    ..provide(Provider<AddRecordChangeNotification>.value(home_add_recored_provide));
 
   ///绑定APP
   runApp(ProviderNode(child: MyApp(), providers: provides));

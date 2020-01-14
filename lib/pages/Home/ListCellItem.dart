@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListCellItem extends StatelessWidget {
+
+  final bool isNecessary;
+
+  ListCellItem(this.isNecessary);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: ScreenUtil().setWidth(ScreenUtil.screenWidth),
-      height: ScreenUtil().setHeight(120),
+      height: ScreenUtil().setHeight(140),
       padding: EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         border: Border(
@@ -15,50 +20,81 @@ class ListCellItem extends StatelessWidget {
       ),
       child: InkWell(
         onTap: (){print('点击了item');},
-        child: Stack(
+        child:
+        Stack(
           alignment: Alignment.centerLeft,
-          textDirection: TextDirection.ltr,
-          fit: StackFit.loose,
+          fit: StackFit.expand,
           children: <Widget>[
             Positioned(
+              width: 160,
               left: 10,
-              child: Icon(Icons.book),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Icon(Icons.book),
+                  Text('饮食消费'),
+                  Text('饮食消费'),
+                ],
+              ),
             ),
             Positioned(
-              left: 30,
-              right: 50,
-              child: _contentWidget(),
+              bottom: 0,
+              right: 15,
+              child: Text(
+                '2019-1-14',
+                style: TextStyle(
+                  fontSize: 12
+                ),
+              ),
             ),
-            Positioned(
-              right: 20,
-              child: Text('aaa'),
-            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: _returnWidgetWithIsNecessary(this.isNecessary),
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget _contentWidget(){
-    return Container(
-      padding: EdgeInsets.only(left: 10, top: 5),
-      alignment: Alignment.centerLeft,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Text(
-            '2019-1-6',
-            style: TextStyle(fontSize: ScreenUtil().setSp(30),fontWeight: FontWeight.w700),
+  ///返回是否必要的widget
+  Widget _returnWidgetWithIsNecessary(bool isNecessary) {
+    if (isNecessary) {
+      return Container(
+        width: 30,
+        height: 20,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(3.0),
+          color: Colors.green,
+        ),
+        child: Text(
+          '必要',
+          style: TextStyle(
+            fontSize: 10,
+            color: Colors.white,
           ),
-          Container(
-            padding: EdgeInsets.only(top: 8),
-            child: Text(
-              '饮食消费',
-              style: TextStyle(fontSize: ScreenUtil().setSp(24)),
-            ),
-          )
-        ],
-      ),
-    );
+        ),
+      );
+    } else {
+      return Container(
+        width: 30,
+        height: 20,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(3.0),
+          color: Colors.red,
+        ),
+        child: Text(
+          '非要',
+          style: TextStyle(
+            fontSize: 10,
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
   }
+
+
 }
