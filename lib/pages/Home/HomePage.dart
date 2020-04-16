@@ -4,10 +4,26 @@ import 'charts_page.dart';
 import 'ListCellItem.dart';
 import '../RoutersPage/Application.dart';
 import '../RoutersPage/router_urls.dart';
+import '../Common/HttpManager.dart' as HttpManager;
+import '../Common/api_list.dart' as API;
+import '../../model/HomeModel.dart';
 
 class HomePage extends StatelessWidget {
+
+  void getHomeData() {
+    HttpManager.postHttpAction(API.APIDetails.homeListApi, {}).then((value){
+      if (value == null) {
+        return;
+      }
+      HomeListModel listModel = HomeListModel.fromJson(value);
+      print(listModel.data[0].cusID);
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    getHomeData();
     print(ScreenUtil.screenWidth);
     return Scaffold(
       appBar: AppBar(title: Text('首页'),),
