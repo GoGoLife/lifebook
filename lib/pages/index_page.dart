@@ -47,7 +47,7 @@ class _IndexPageVCState extends State<IndexPageVC> {
   @override
   Widget build(BuildContext context) {
 //    获取当前屏幕宽高
-    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
 
     return Scaffold(
       backgroundColor: Colors.blueAccent,

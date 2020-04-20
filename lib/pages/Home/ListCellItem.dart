@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:life_book/model/HomeModel.dart';
 
 class ListCellItem extends StatelessWidget {
+  final Data itemData;
 
-  final bool isNecessary;
-
-  ListCellItem(this.isNecessary);
+  ListCellItem(this.itemData);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: ScreenUtil().setWidth(ScreenUtil.screenWidth),
+      width: ScreenUtil().setWidth(750),
       height: ScreenUtil().setHeight(140),
       padding: EdgeInsets.all(5.0),
       decoration: BoxDecoration(
@@ -19,21 +19,27 @@ class ListCellItem extends StatelessWidget {
         ),
       ),
       child: InkWell(
-        onTap: (){print('点击了item');},
-        child:
-        Stack(
+        onTap: () {
+          print('点击了item');
+        },
+        child: Stack(
           alignment: Alignment.centerLeft,
           fit: StackFit.expand,
           children: <Widget>[
             Positioned(
-              width: 160,
+//              width: 160,
               left: 10,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Icon(Icons.book),
-                  Text('饮食消费'),
-                  Text('饮食消费'),
+                  Text('     '),
+                  Column(
+                    children: <Widget>[
+                      Text(this.itemData.title),
+                      Text('饮食消费'),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -42,14 +48,13 @@ class ListCellItem extends StatelessWidget {
               right: 15,
               child: Text(
                 '2019-1-14',
-                style: TextStyle(
-                  fontSize: 12
-                ),
+                style: TextStyle(fontSize: 12),
               ),
             ),
             Align(
               alignment: Alignment.topRight,
-              child: _returnWidgetWithIsNecessary(this.isNecessary),
+              child: _returnWidgetWithIsNecessary(this.itemData.isMust == 1
+                  ? true : false),
             )
           ],
         ),
@@ -95,6 +100,4 @@ class ListCellItem extends StatelessWidget {
       );
     }
   }
-
-
 }

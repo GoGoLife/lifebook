@@ -10,8 +10,8 @@ class ChartsViewVC extends StatelessWidget {
 
   Widget chartsView() {
     return Container(
-      height: ScreenUtil().setHeight(150 * ScreenUtil.pixelRatio),
-      width: ScreenUtil().setWidth(ScreenUtil.screenWidth),
+      height: ScreenUtil().setHeight(300),
+      width: ScreenUtil().setWidth(750),
       margin: EdgeInsets.only(top: 15, right: 15),
       child: charts.LineChart(
         samples(),
