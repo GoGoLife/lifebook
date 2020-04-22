@@ -1,5 +1,4 @@
 import 'package:date_format/date_format.dart';
-//import 'package:flutter/material.dart';
 
 class DateTool {
   factory DateTool() => _getInstance();
@@ -23,5 +22,11 @@ class DateTool {
   String returnCurrentDate() {
     DateTime time = DateTime.now();
     return formatDate(time, [yyyy, '-', mm, '-', dd]);
+  }
+
+  // 返回当前时间戳
+  int returnCurrentTimestamp() {
+    var currentDate = DateTime.now();
+    return currentDate.millisecondsSinceEpoch;
   }
 }

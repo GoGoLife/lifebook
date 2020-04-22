@@ -20,9 +20,12 @@ Future<HomeListModel> postHttpAction(String url, Map<String, dynamic> param) asy
       body: json.encode(param), encoding: Utf8Codec());
   final Map<String, dynamic> result = json.decode(response.body);
   return HomeListModel.fromJson(result);
-//  try {
-//
-//  } catch (error) {
-//    return Future.error('http request error');
-//  }
+}
+
+Future<Map<String, dynamic>> defaultPostHttpAction(String url, Map<String, dynamic> param) async {
+  String finalUrl = API.APIDetails.baseUrl + url;
+  final http.Response response = await http.post(finalUrl,
+      body: json.encode(param), encoding: Utf8Codec());
+  final Map<String, dynamic> result = json.decode(response.body);
+  return result;
 }

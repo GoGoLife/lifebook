@@ -5,4 +5,6 @@ class APIDetails {
 
   // 首页列表
   static String homeListApi = '/app/home/list';
+  //添加数据
+  static String homeAddRecord = '/app/home/add/record';
 }
