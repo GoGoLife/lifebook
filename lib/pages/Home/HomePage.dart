@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'charts_page.dart';
@@ -9,50 +10,55 @@ import '../Common/api_list.dart' as API;
 import '../../model/HomeModel.dart';
 
 class HomePage extends StatelessWidget {
+  Future<dynamic> _futureBuildFuture() {
+    return HttpManager.postHttpAction(API.APIDetails.homeListApi, {});
+  }
+
+  var _futureParam;
+
   @override
   Widget build(BuildContext context) {
+    _futureParam = _futureBuildFuture();
     return Scaffold(
       appBar: AppBar(
         title: Text('首页'),
       ),
-      body: FutureBuilder(
-        future: HttpManager.postHttpAction(API.APIDetails.homeListApi, {}),
-        builder: _futureBuild,
+      body: Container(
+        child: FutureBuilder<dynamic>(
+          future: _futureParam,
+          builder: _futureBuild,
+        ),
       ),
     );
   }
 
-  Widget _futureBuild(BuildContext context, AsyncSnapshot<HomeListModel> snapshot) {
+  Widget _futureBuild(BuildContext context, AsyncSnapshot<dynamic> snapshot) {
     switch (snapshot.connectionState) {
       case ConnectionState.none:
-        return Container(
-          child: Text('none'),
-        );
-      case ConnectionState.waiting:
-        return Container(
-          child: Text('waiting'),
-        );
       case ConnectionState.active:
-        return Container(
-          child: Text('active'),
+      case ConnectionState.waiting:
+        return Center(
+          child: CupertinoActivityIndicator(),
         );
       case ConnectionState.done:
         if (snapshot.hasError) {
-          return Container(
-            child: Text('Error: ${snapshot.error.toString()}'),
+          return Center(
+            child: FlatButton(
+              onPressed: () {},
+              child: Text('重新加载'),
+            ),
           );
         } else {
           return loadViewUI(context, snapshot.data);
         }
-        break;
-      default:
-        return Container(
-          child: Text('data'),
-        );
     }
+    return null;
   }
 
-  Widget loadViewUI(BuildContext context, HomeListModel model) {
+  Widget loadViewUI(BuildContext context, Map<String, dynamic> returnData) {
+    //解析数据
+    HomeListModel model = HomeListModel.fromJson(returnData);
+
     return Container(
       width: ScreenUtil.screenWidth,
       color: Colors.white,

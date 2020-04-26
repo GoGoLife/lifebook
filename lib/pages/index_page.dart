@@ -28,19 +28,16 @@ class _IndexPageVCState extends State<IndexPageVC> {
   ];
 
   int currentIndex = 0;
-  var currentVC;
 
   @override
   void initState() {
     // TODO: implement initState
-    currentVC = viewControllers[currentIndex];
     super.initState();
   }
 
   void changeVC(int touchIndex){
     setState(() {
       currentIndex = touchIndex;
-      currentVC = viewControllers[touchIndex];
     });
   }
 

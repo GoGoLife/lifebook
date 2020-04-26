@@ -12,7 +12,7 @@ class AddRecordsVC extends StatelessWidget {
     'image_url':'',
     'title': '',
     'describe': '',
-    'time': DateTool().returnCurrentTimestamp(),
+    'time_stamp': DateTool().returnCurrentTimestamp(),
     'is_must': '',
     'price': '0.00',
     'is_income':''
